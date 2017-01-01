@@ -3,7 +3,19 @@ namespace isItaTemplate;
 
 class IsTemplate {
 
+	public $theme_shops;
+
+	public function fetch_theme_shops() {
+		$filename = get_template_directory() . '/assets/data/theme-shops.json';
+
+		if ( is_readable( $filename ) ) {
+			$this->theme_shops = json_decode( file_get_contents( $filename ), true );
+		}
+	}
+
 	public function check_theme( $theme ) {
+		$this->fetch_theme_shops();
+
 		if (
 			$this->check_theme_name( $theme )
 			|| $this->check_theme_url( $theme )
@@ -11,7 +23,6 @@ class IsTemplate {
 		) {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -57,32 +68,8 @@ class IsTemplate {
 	}
 
 	public function check_theme_url( $theme ) {
-		$known_template_shops = [
-			'wordpress.org',
-			'themeforest',
-			'themelovin',
-			'woothemes',
-			'elegantthemes',
-			'theme.co',
-			'8theme',
-			'pexetothemes',
-			'themes.muffingroup',
-			'qodethemes',
-			'templatemonster',
-			'themezaa',
-			'ninzio',
-			'unitedthemes',
-			'dream-theme',
-			'premiumcoding',
-			'studiopress',
-			'churchthemes',
-			'mhthemes',
-			'themezilla',
-
-		];
-
-		foreach( $known_template_shops as $template_shop ) {
-			if ( false !== stripos( $theme['ThemeURI'], $template_shop ) || false !== stripos( $theme['AuthorURI'], $template_shop ) ) {
+		foreach( $this->theme_shops as $name => $url ) {
+			if ( false !== stripos( $theme['ThemeURI'], $url ) || false !== stripos( $theme['AuthorURI'], $url ) ) {
 				return true;
 			}
 		}
@@ -91,29 +78,7 @@ class IsTemplate {
 	}
 
 	public function check_author_name( $theme ) {
-		$known_template_authors = [
-			'Themelovin',
-			'WPExplorer',
-			'Themeco',
-			'8theme',
-			'Pexeto',
-			'Muffin group',
-			'Qode Interactive',
-			'ThemeZaa',
-			'Ninzio Team',
-			'United Themes',
-			'Dream-Theme',
-			'gljivec',
-			'StudioPress',
-			'Church Themes',
-			'AudioTheme',
-			'Meridian Themes',
-			'StrictThemes',
-			'PixelGrade',
-			'Graph Paper Press'
-		];
-
-		if ( in_array( $theme['Author'], $known_template_authors ) ) {
+		if ( array_key_exists( $theme['Author'], $this->theme_shops ) ) {
 			return true;
 		}
 

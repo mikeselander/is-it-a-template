@@ -32,6 +32,22 @@
 		"oS": 3,
 		"uL": 1
 		},
+	"\/data\/common-templates.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/data\/common-templates-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
+	"\/data\/theme-shops.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "\/data\/theme-shops-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"\/images\/react-logo.svg": {
 		"ft": 2097152,
 		"miP": 0,
