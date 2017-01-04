@@ -1,3 +1,4 @@
+/* global themeInfo */
 import React, { Component } from 'react';
 import ThemeForm from './ThemeForm';
 import Results from './Results';
@@ -15,7 +16,7 @@ class App extends Component {
 	}
 
 	fetchThemeInfo( url, form ) {
-		const qualifiedURL = 'http://localhost/sites/isitatemplate.com/wp-json/template/v1/fetchtheme/?url=' + url;
+		const qualifiedURL = themeInfo.siteURL + '/wp-json/template/v1/fetchtheme/?url=' + url;
 		const template = {...this.state.template};
 		const cur = this;
 
