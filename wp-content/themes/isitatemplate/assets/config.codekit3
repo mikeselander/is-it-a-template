@@ -48,6 +48,22 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/images\/bkg.jpg": {
+		"ft": 16384,
+		"iS": 164787,
+		"oA": 0,
+		"oAP": "\/images\/bkg.jpg",
+		"oF": 0,
+		"opt": 0
+		},
+	"\/images\/photo-1482745637430-91c0bbcea3e1.jpeg": {
+		"ft": 16384,
+		"iS": 469948,
+		"oA": 0,
+		"oAP": "\/images\/photo-1482745637430-91c0bbcea3e1.jpg",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/images\/react-logo.svg": {
 		"ft": 2097152,
 		"miP": 0,

@@ -111,6 +111,18 @@ class FetchTheme {
 		return $themes;
 	}
 
+	public static function assign_vulnerabilities( $themes, $type ) {
+		if ( empty( $themes ) ) {
+			return [];
+		}
+
+		foreach ( $themes as $key => $value ) {
+			$themes[ $key ]['vulnerabilities'] = FetchVulnerabilities::fetch( $key, $value );
+		}
+
+		return $themes;
+	}
+
 	public static function validate_url( $url ) {
 		return ( ! filter_var( $url, FILTER_VALIDATE_URL ) === false );
 	}

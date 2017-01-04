@@ -8,7 +8,7 @@ class SaveRequest {
         return $wpdb->prefix . 'requests';
     }
 
-	public static function clean_data( $data ) {
+	public static function clean_data( $data ) {		
 		return [
 			'url'         => sanitize_url( $data['url'] ),
 			'theme_name'  => sanitize_text_field( $data['Name'] ),
@@ -18,7 +18,17 @@ class SaveRequest {
 			'version'     => sanitize_text_field( $data['Version'] ),
 			'child_theme' => ( isset( $data['child'] ) ) ? sanitize_text_field( json_encode( $data['child'] ) ) : '',
 			'is_template' => ( $data['isTemplate'] ) ? true : false,
+			'ip_address'  => self::get_ip_address(),
 		];
+	}
+
+	public static function get_ip_address() {
+		return getenv('HTTP_CLIENT_IP')?:
+			   getenv('HTTP_X_FORWARDED_FOR')?:
+			   getenv('HTTP_X_FORWARDED')?:
+			   getenv('HTTP_FORWARDED_FOR')?:
+			   getenv('HTTP_FORWARDED')?:
+			   getenv('REMOTE_ADDR');
 	}
 
 	public static function insert( $data ) {

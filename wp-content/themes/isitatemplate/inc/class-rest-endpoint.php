@@ -29,6 +29,10 @@ class RestEndpoint {
 			return JsonResponse::error( 'Not sure, I couldn\'t find a theme 😢 This might not be a WordPress site or the resources might be concatenated.' );
 		}
 
+		if ( ! empty( $request->get_param( 'security' ) ) ) {
+			$theme_data = self::assign_vulnerabilities( $theme_data, sanitize_text_field( $request->get_param( 'security' ) ) );
+		}
+
 		// Keep a record of requests so that we can identify trends and better
 		// identify templates in the future.
 		SaveRequest::insert( current( $theme_data ) );

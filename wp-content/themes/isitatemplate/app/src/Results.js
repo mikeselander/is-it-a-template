@@ -13,9 +13,8 @@ class Results extends Component {
 		  	<img src={themeInfo.url + 'screenshot.png'} alt={themeInfo.Name} />
 
 			<div className="theme-info">
-				<h4><strong>Theme Name:</strong> {themeInfo.Name}</h4>
-				<h4><strong>Theme Site:</strong> <a href={themeInfo.ThemeURI} >{themeInfo.ThemeURI}</a></h4>
-				<h4><strong>Theme Author:</strong> {themeInfo.Author}</h4>
+				<h4><strong>Theme Name:</strong> <a href={themeInfo.ThemeURI} >{themeInfo.Name}</a></h4>
+				<h4><strong>Theme Author:</strong> <a href={themeInfo.AuthorURI} >{themeInfo.Author}</a></h4>
 				<h4><strong>Description:</strong> {themeInfo.Description}</h4>
 			</div>
 		  </div>

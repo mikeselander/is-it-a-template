@@ -11,7 +11,7 @@ body {
 	text-align: center;
 	color: rgba( 0, 0, 0, .8 );
 	font: 12px/1.5 $body-font;
-	background-image: url( https://images.unsplash.com/photo-1482745637430-91c0bbcea3e1?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop= );
+	background-image: url( '../images/bkg.jpg' );
 	background-size: cover;
 	background-position: center;
 }
@@ -61,7 +61,7 @@ a {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate( -50%, -50% );
+	transform: translate( -50%, -60% );
 	width: 100%;
 	padding: 15px;
 
@@ -72,16 +72,57 @@ a {
 
 form {
 	padding: 15px;
+	display: block;
+	max-width: 650px;
+	margin-bottom: 10px;
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
 }
 
 .url-input {
 	display: block;
 	width: 95%;
 	max-width: 500px;
-	padding: 8px;
-	font-weight: 500;
 	border: 1px solid rgba( 0, 0, 0, .4 );
-	font-size: 1.1em;
+}
+
+button {
+	margin-top: 10px;
+	border: 0;
+	font-weight: 500;
+	text-transform: uppercase;
+	background-color: rgb( 0, 0, 0 );
+	color: #fff;
+
+	&:hover,
+	&:active {
+		background-color: #353535;
+	}
+}
+
+.url-input,
+button {
+	font-size: 1.2em;
+	padding: 10px;
+	font-weight: 500;
+}
+
+@media screen and (min-width: 650px) {
+	.url-input{
+		float: left;
+		width: 80%;
+	}
+
+	button {
+		float: right;
+		width: 30%;
+		margin-top: -39px;
+		padding: 7.5px 10px;
+	}
 }
 
 form.active {
@@ -117,27 +158,13 @@ form.active {
 	padding: 0px;
 }
 
-button {
-	margin-top: 10px;
-	padding: 5px 15px;
-	border: 1px solid rgba( 0, 0, 0, .3 );
-	font-weight: 500;
-	text-transform: uppercase;
-	background-color: rgba( 0, 0, 0, .7 );
-	color: #fff;
-
-	&:hover,
-	&:active {
-		background-color: rgba( 0, 0, 0, .9 );
-	}
-}
-
 /**
  * Results container.
  */
 .results-container {
 	width: 95%;
-	max-width: 800px;
+	max-width: 700px;
+	font-size: 1.2em;
 
 	img {
 		max-width: 300px;
@@ -147,12 +174,12 @@ button {
 		.theme-info {
 			text-align: left;
 			float: left;
-			max-width: 50%;
+			max-width: 65%;
 		}
 
 		img {
 			float: right;
-			max-width: 50%;
+			max-width: 30%;
 		}
 	}
 }
