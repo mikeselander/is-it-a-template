@@ -22,7 +22,7 @@ class ThemeForm extends Component {
 			<form ref={(input) => this.urlForm = input} onSubmit={this.submitForm.bind(this)}>
 				<input ref={(input) => this.urlField = input} type="text" placeholder="Enter URL here." defaultValue="http://" className="url-input" />
 				<label for="pooh-bear-likes" className="pooh-bear-likes">For Official Use Only</label>
-    			<input ref={(input) => this.poohBearField = input} name="pooh-bear-likes" type="text" className="pooh-bear-likes" defaultValue="" />
+    			<input ref={(input) => this.poohBearField = input} name="pooh-bear-likes" type="text" className="pooh-bear-likes" />
 				<button>Am I a Template? 🤔</button>
 			</form>
 		);

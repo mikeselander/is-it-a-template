@@ -3,12 +3,20 @@ namespace isItaTemplate;
 
 class SaveRequest {
 
+	/**
+	 * Define our table prefix.
+	 */
 	private static function _table() {
         global $wpdb;
         return $wpdb->prefix . 'requests';
     }
 
-	public static function clean_data( $data ) {		
+	/**
+	 * Clean and whitelist the data according to key.
+	 *
+	 * @param array $data
+	 */
+	public static function clean_data( $data ) {
 		return [
 			'url'         => sanitize_url( $data['url'] ),
 			'theme_name'  => sanitize_text_field( $data['Name'] ),
@@ -22,6 +30,9 @@ class SaveRequest {
 		];
 	}
 
+	/**
+	 * Fetch the user's IP address.
+	 */
 	public static function get_ip_address() {
 		return getenv('HTTP_CLIENT_IP')?:
 			   getenv('HTTP_X_FORWARDED_FOR')?:
@@ -31,6 +42,11 @@ class SaveRequest {
 			   getenv('REMOTE_ADDR');
 	}
 
+	/**
+	 * Insert our data into the dtabase.
+	 *
+	 * @param array $data Information about the request.
+	 */
 	public static function insert( $data ) {
         global $wpdb;
 		$data = self::clean_data( $data );

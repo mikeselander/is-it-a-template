@@ -2,15 +2,25 @@
 namespace isItaTemplate;
 
 class FetchVulnerabilities {
-	public static function fetch( $theme_name, $theme ) {
-		$vulnerabilities = self::fetch_from_wpvulndb( $theme_name );
 
-		$active_vulnerabilities = array_filter( $vulnerabilities, function( $vuln ) use ( $theme ) {
-			if ( null !== $vuln->fixed_in && version_compare( $theme['Version'], $vuln->fixed_in, '<' ) ) {
-				return true;
-			}
-			return false;
-		} );
+	/**
+	 * Wrapper and normalizer for Wp Vuln DB vulnerability information.
+	 *
+	 * @param string $theme_name
+	 * @param array $theme
+	 */
+	public static function fetch( $theme_name, $theme = [] ) {
+		$vulnerabilities        = self::fetch_from_wpvulndb( $theme_name );
+		$active_vulnerabilities = [];
+
+		if ( ! empty( $theme ) ) {}
+			$active_vulnerabilities = array_filter( $vulnerabilities, function( $vuln ) use ( $theme ) {
+				if ( null !== $vuln->fixed_in && version_compare( $theme['Version'], $vuln->fixed_in, '<' ) ) {
+					return true;
+				}
+				return false;
+			} );
+		}
 
 		return [
 			'all'    => $vulnerabilities,
@@ -18,6 +28,11 @@ class FetchVulnerabilities {
 		];
 	}
 
+	/**
+	 * Reach out to the WP Vuln DB API and get vulnerabilities on the theme.
+	 *
+	 * @param string $theme_name
+	 */
 	private static function fetch_from_wpvulndb( $theme_name ) {
 		$url = 'https://wpvulndb.com/api/v2/themes/' . $theme_name;
 

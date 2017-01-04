@@ -3,7 +3,14 @@ namespace isItaTemplate;
 
 use Goutte\Client;
 
+/**
+ * Fetch a theme's information.
+ */
 class FetchTheme {
+
+	/**
+	 * File headers for fetching the CSS content.
+	 */
 	public static $file_headers = array(
 		'Name'        => 'Theme Name',
 		'ThemeURI'    => 'Theme URI',
@@ -15,6 +22,12 @@ class FetchTheme {
 		'Tags'        => 'Tags',
 	);
 
+	/**
+	 * Getter for fetching all theme information
+	 *
+	 * @param string $url
+	 * @return array
+	 */
 	public static function fetch_theme_data( $url ) {
 		if ( ! self::validate_url( $url ) ) {
 			return;
@@ -26,7 +39,6 @@ class FetchTheme {
 			return new \WP_Error( 'fetch-theme', $e->getMessage(), 'my best' );
 		}
 
-		// @todo:: also fetch javascript files.
 		// @todo:: how to get past concatenators?
 		$links = $crawler->filter( 'link' )->reduce( function ( $node, $i ) {
 			return ( false !== strpos( $node->attr( 'href' ), 'themes' ) );
@@ -57,6 +69,13 @@ class FetchTheme {
 		return $themes;
 	}
 
+	/**
+	 * Find the stylesheet URl and theme name from some DOM elements.
+	 *
+	 * @param array  $links
+	 * @param string $attribute
+	 * @return array
+	 */
 	private static function find_stylesheet( $links, $attribute ) {
 		$themes = [];
 		foreach( $links as $link ) {
@@ -74,11 +93,23 @@ class FetchTheme {
 		return $themes;
 	}
 
+	/**
+	 * Fetch a site's HTML and Dom structure.
+	 *
+	 * @param string $url
+	 * @return array
+	 */
 	private static function fetch_site( $url ) {
 		$client = new Client();
 		return $client->request( 'GET', $url );
 	}
 
+	/**
+	 * Sort out primary and child themes.
+	 *
+	 * @param array $themes
+	 * @return array
+	 */
 	private static function assign_children_themes( $themes ) {
 		if ( empty( $themes ) ) {
 			return [];
@@ -96,6 +127,12 @@ class FetchTheme {
 		return $themes;
 	}
 
+	/**
+	 * Get the template status and assign it to our data array.
+	 *
+	 * @param array $themes
+	 * @return array
+	 */
 	private static function assign_template_status( $themes ) {
 		if ( empty( $themes ) ) {
 			return [];
@@ -111,7 +148,13 @@ class FetchTheme {
 		return $themes;
 	}
 
-	public static function assign_vulnerabilities( $themes, $type ) {
+	/**
+	 * Assign vulnerabilities from a theme.
+	 *
+	 * @param array $themes
+	 * @return array
+	 */
+	public static function assign_vulnerabilities( $themes ) {
 		if ( empty( $themes ) ) {
 			return [];
 		}
@@ -123,6 +166,9 @@ class FetchTheme {
 		return $themes;
 	}
 
+	/**
+	 * Validate a URL's validity.
+	 */
 	public static function validate_url( $url ) {
 		return ( ! filter_var( $url, FILTER_VALIDATE_URL ) === false );
 	}
