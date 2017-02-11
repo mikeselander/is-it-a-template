@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import ThemeForm from './ThemeForm';
 import Results from './Results';
+import ReactGA from 'react-ga';
+ReactGA.initialize( 'UA-89679689-1' );
 
 class App extends Component {
 	constructor() {
@@ -52,6 +54,8 @@ class App extends Component {
 	}
 
 	render() {
+		ReactGA.pageview( "/" );
+
 		const title = ( this.state.template.data ) ? this.state.template.data[ Object.keys( this.state.template.data )[0] ].templateText : 'Is It a Template?';
 		return (
 			<div className="app">

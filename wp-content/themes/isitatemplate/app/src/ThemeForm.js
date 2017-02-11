@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ReactGA from 'react-ga';
 
-class ThemeForm extends Component {
+class ThemeForm extends React.Component {
 	submitForm( event ) {
 		event.preventDefault();
 
@@ -13,6 +14,12 @@ class ThemeForm extends Component {
 			this.props.setErrorMessage( 'I see what you did there 👻 Nice try :P' );
 			return;
 		}
+
+		ReactGA.event( {
+            category: 'completion',
+            action: 'Submitted Website',
+			label: this.urlField.value,
+        } );
 
 		this.props.fetchThemeInfo( this.urlField.value, this.urlForm );
 	}
