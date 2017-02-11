@@ -20,6 +20,7 @@
 	<meta name="twitter:title" content="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
 	<meta name="twitter:site" content="@Mike_Selander" />
 	<meta name="twitter:creator" content="@mikeselander" />
+	<link href="/assets/images/favicon.png" rel="shortcut icon">
 
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

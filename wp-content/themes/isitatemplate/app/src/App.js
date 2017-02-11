@@ -34,8 +34,6 @@ class App extends Component {
 		fetch( request ).then( function( response ) {
 			return response.json();
 		} ).then(function( response ) {
-			console.log( response );
-
 			cur.setState( { template: response } );
 			form.classList.remove( 'active' );
 		});

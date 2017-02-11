@@ -52,7 +52,7 @@ class RestEndpoint {
 
 		// Keep a record of requests so that we can identify trends and better
 		// identify templates in the future.
-		SaveRequest::insert( current( $theme_data ) );
+		SaveRequest::insert( current( $theme_data, $url ) );
 
 		return JsonResponse::success( 'Found the theme.', $theme_data );
 	}

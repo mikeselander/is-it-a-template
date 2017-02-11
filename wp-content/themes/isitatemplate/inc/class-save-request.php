@@ -16,9 +16,10 @@ class SaveRequest {
 	 *
 	 * @param array $data
 	 */
-	public static function clean_data( $data ) {
+	public static function clean_data( $data, $site_url ) {
 		return [
 			'url'         => sanitize_url( $data['url'] ),
+			'site_url'    => sanitize_url( $site_url ),
 			'theme_name'  => sanitize_text_field( $data['Name'] ),
 			'theme_uri'   => sanitize_url( $data['ThemeURI'] ),
 			'author'      => sanitize_text_field( $data['Author'] ),
@@ -47,9 +48,9 @@ class SaveRequest {
 	 *
 	 * @param array $data Information about the request.
 	 */
-	public static function insert( $data ) {
+	public static function insert( $data, $site_url ) {
         global $wpdb;
-		$data = self::clean_data( $data );
+		$data = self::clean_data( $data, $site_url );
         $wpdb->insert( self::_table(), $data );
     }
 }
