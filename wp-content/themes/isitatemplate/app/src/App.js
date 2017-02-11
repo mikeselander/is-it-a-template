@@ -17,7 +17,6 @@ class App extends Component {
 
 	fetchThemeInfo( url, form ) {
 		const qualifiedURL = themeInfo.siteURL + '/wp-json/template/v1/fetchtheme/?url=' + url;
-		const template = {...this.state.template};
 		const cur = this;
 
 		// Reset the state to blank.
@@ -41,7 +40,6 @@ class App extends Component {
 	}
 
 	setErrorMessage( message ) {
-		const template = {...this.state.template};
 		this.setState( { template: {
 			status: 'error',
 			message: message

@@ -33,6 +33,12 @@ class RestEndpoint {
 			return JsonResponse::error( 'Invalid URL provided.' );
 		}
 
+		// Check if theme has already been run.
+		// Also, check if into if outdated by say, 30 days.
+		if ( $existing_theme = $this->check_if_theme_has_run( $url ) ) {
+			return JsonResponse::success( 'Found the theme.', $existing_theme );
+		}
+
 		// Get our theme information.
 		$theme_data = FetchTheme::fetch_theme_data( esc_url( $url ) );
 
@@ -52,9 +58,39 @@ class RestEndpoint {
 
 		// Keep a record of requests so that we can identify trends and better
 		// identify templates in the future.
-		SaveRequest::insert( current( $theme_data, $url ) );
+		SaveRequest::insert( current( $theme_data ), $url );
 
 		return JsonResponse::success( 'Found the theme.', $theme_data );
+	}
+
+	/**
+	 * Check first if theme data already exists in the database. If so, return it.
+	 *
+	 * @param string $url
+	 */
+	private function check_if_theme_has_run( $url ) {
+		global $wpdb;
+
+		$info = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}requests WHERE site_url = %s", str_replace( [ 'http://', 'https://' ], '', $url ) )
+		 );
+
+		 if ( $info ) {
+			 return [
+				 sanitize_title( $info->theme_name ) => [
+					'url'         => $info->url,
+		 			'Name'        => $info->theme_name,
+		 			'ThemeURI'    => $info->theme_uri,
+		 			'Author'      => $info->author,
+		 			'AuthorURI'   => $info->author_uri,
+		 			'Version'     => $info->version,
+					'Description' => $info->description,
+					'templateText' => ( $info->is_template ) ? '🤖 Yep, it is a Template 🤖' : '🎉 This is a Custom Theme 🎉'
+				]
+			];
+		 }
+
+		 return false;
 	}
 
 	/**

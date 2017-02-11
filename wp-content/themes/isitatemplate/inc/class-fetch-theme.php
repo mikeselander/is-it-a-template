@@ -141,7 +141,7 @@ class FetchTheme {
 		foreach ( $themes as $key => $value ) {
 			$is_template = ( new IsTemplate() )->check_theme( $value );
 			$themes[ $key ]['isTemplate']   = $is_template;
-			$themes[ $key ]['templateText'] = ( $is_template ) ? '👀 This is a Template 👀' : '🎉 This is a Custom Theme 🎉';
+			$themes[ $key ]['templateText'] = ( $is_template ) ? '🤖 Yep, it is a Template 🤖' : '🎉 This is a Custom Theme 🎉';
 			$themes[ $key ]['hasChild']     = ( new IsTemplate() )->has_child_theme( $value );
 		}
 

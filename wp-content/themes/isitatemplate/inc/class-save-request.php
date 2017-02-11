@@ -18,16 +18,18 @@ class SaveRequest {
 	 */
 	public static function clean_data( $data, $site_url ) {
 		return [
-			'url'         => sanitize_url( $data['url'] ),
-			'site_url'    => sanitize_url( $site_url ),
-			'theme_name'  => sanitize_text_field( $data['Name'] ),
-			'theme_uri'   => sanitize_url( $data['ThemeURI'] ),
-			'author'      => sanitize_text_field( $data['Author'] ),
-			'author_uri'  => sanitize_url( $data['AuthorURI'] ),
-			'version'     => sanitize_text_field( $data['Version'] ),
-			'child_theme' => ( isset( $data['child'] ) ) ? sanitize_text_field( json_encode( $data['child'] ) ) : '',
-			'is_template' => ( $data['isTemplate'] ) ? true : false,
-			'ip_address'  => self::get_ip_address(),
+			'url'          => sanitize_url( $data['url'] ),
+			'site_url'     => str_replace( [ 'http://', 'https://' ], '', sanitize_url( $site_url ) ),
+			'theme_name'   => sanitize_text_field( $data['Name'] ),
+			'theme_uri'    => sanitize_url( $data['ThemeURI'] ),
+			'author'       => sanitize_text_field( $data['Author'] ),
+			'author_uri'   => sanitize_url( $data['AuthorURI'] ),
+			'version'      => sanitize_text_field( $data['Version'] ),
+			'child_theme'  => ( isset( $data['child'] ) ) ? sanitize_text_field( json_encode( $data['child'] ) ) : '',
+			'is_template'  => ( $data['isTemplate'] ) ? true : false,
+			'description'  => sanitize_text_field( $data['Description'] ),
+			'ip_address'   => self::get_ip_address(),
+			'request_date' => date( 'U' ),
 		];
 	}
 
