@@ -1,0 +1,29 @@
+# Chassis Configuration
+#
+# This file is the default configuration for all projects. The fallback order of
+# configuration files is:
+#
+# - project/content/config.local.yaml   (project-specific overrides)
+# - project/content/config.yaml         (project-specific defaults)
+# - project/config.local.yaml          (global overrides)
+# - project/config.yaml                 (global defaults)
+
+# Domain names to use for Vagrant
+#
+# The first name will be used as the machine's name, subsequent names will be
+# aliased in your hosts file and in nginx
+#
+# (When overriding, include vagrant.local if you need it)
+hosts:
+    - isitatemplate.local
+
+# Themes
+#
+# Install a list of themes, and activate the last one of them
+# NOTE: This will activate all themes going down the list, so might activate some activation actions within each
+#themes:
+    - isitatemplate
+
+# PHP version
+# Values: 5.6, 7.0, 7.1 (or 5.6.30)
+php: 7.0
